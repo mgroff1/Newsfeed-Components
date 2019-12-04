@@ -37,9 +37,9 @@ const data = [
         mewing kittens Remus Lupin. Palominos scarlet train black robes, Metamorphimagus Niffler dead easy second bedroom. Padma
         and Parvati Sorting Hat Minister of Magic blue turban remember my last.`,
 
-    thirdParagraph: `Toad-like smile Flourish and Blotts he knew I’d come back Quidditch World Cup. Fat Lady baubles banana fritters fairy lights 
-        Petrificus Totalus. So thirsty, deluminator firs’ years follow me 12 inches of parchment. Head Boy start-of-term banquet Cleansweep Seven 
-        roaring lion hat. Unicorn blood crossbow mars is bright tonight, feast Norwegian Ridgeback. Come seek us where our voices sound, we cannot 
+    thirdParagraph: `Toad-like smile Flourish and Blotts he knew I’d come back Quidditch World Cup. Fat Lady baubles banana fritters fairy lights
+        Petrificus Totalus. So thirsty, deluminator firs’ years follow me 12 inches of parchment. Head Boy start-of-term banquet Cleansweep Seven
+        roaring lion hat. Unicorn blood crossbow mars is bright tonight, feast Norwegian Ridgeback. Come seek us where our voices sound, we cannot
         sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`
   },
   {
@@ -66,8 +66,8 @@ const data = [
         consectetur adipiscing elit. Nidoran Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nidorino Lorem ipsum dolor
         sit amet, consectetur adipiscing elit. Nidoking Lorem ipsum`,
 
-    thirdParagraph: `Gotta catch 'em all Horsea gym Ninjask Absol Sinnoh Poliwag. Gotta catch 'em all Youngster wants to fight Soda Pop Floatzel 
-        Leech Life Seismitoad Ariados. Earthquake Pokemon Glitch City Tail Whip Skitty Ekans Dialga. Ut aliquip ex ea commodo consequat James 
+    thirdParagraph: `Gotta catch 'em all Horsea gym Ninjask Absol Sinnoh Poliwag. Gotta catch 'em all Youngster wants to fight Soda Pop Floatzel
+        Leech Life Seismitoad Ariados. Earthquake Pokemon Glitch City Tail Whip Skitty Ekans Dialga. Ut aliquip ex ea commodo consequat James
         Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
   },
   {
@@ -88,8 +88,8 @@ const data = [
   }
 ];
 
-/* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
-  
+/* Step 1: Create a function that creates a component. You will want your component to look like the template below:
+
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -112,3 +112,84 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+
+const accordion = document.createElement('button');
+accordion.classList.add('expandButton');
+const article = document.querySelectorAll('article');
+const articles = document.querySelector('.articles');
+const menuImg = document.querySelector('.meunu-button');
+
+document.body.appendChild(accordion);
+accordion.appendChild(articles);
+
+let level1;
+accordion.textContent = "ACCORDIAN";
+
+// document.querySelector('.close').setAttribute('style','display:','none');
+data.arr = [];
+
+////////////////////////////////////////////////////////////////////////
+//////creat an array to sort to access dif paragraphs///////////////////
+////////////////////////////////////////////////////////////////////////
+
+data.forEach(function(d){
+data.arr.push([d.firstParagraph,d.secondParagraph,d.thirdParagraph]);
+
+})
+
+console.log(data.arr)
+////////////////////////////////////////////////////////////////////////
+//////              How are things going?            ///////////////////
+////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////element-factory///////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+function creator(ele,attributes, ...children){
+  const el = document.createElement(ele)
+  accordion.appendChild(el);
+  for (key in attributes) {
+	el.setAttribute(key, attributes[key])
+  }
+  children.forEach(child => {
+	if (typeof child === 'string') {
+	  el.appendChild(document.createTextNode(child))
+	} else {
+	el.appendChild(child)
+	}
+})
+  return el
+};
+////////////////////////////////////////////////////////////////////////////
+///////////////////end of factory/////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+// let article = document.getElementsByClassName('article');
+////////////////////////////////////////////////////////////////////////////
+//////////////////////giving the factory something to chew on///////////////
+////////////////////////////////////////////////////////////////////////////
+let contentArr =[];
+linebreak = document.createElement("br");
+for(let i = 0;i<data.arr.length;i++){
+  let para = data.arr[i]+"Paragraph";
+data.forEach(data => {
+let level1 = creator('div',{class:'article'},creator('p',{class:'article'},`${data.title} \n ${data.date}`,creator('p',{},para)));
+article.forEach(function(ar){
+  return articles.appendChild(ar);
+})
+})
+articles.setAttribute('style','display:','none;')
+
+}
+
+let attributeChanger = function(){
+
+// article.style.display = 'none';
+}
+attributeChanger()
+accordion.addEventListener('click', event => {
+  articles.classList.toggle('article-open')
+})
+////////////////////////////////////////////////////////////////////////////
+/////////////////          hoping its full                   ///////////////
+////////////////////////////////////////////////////////////////////////////
