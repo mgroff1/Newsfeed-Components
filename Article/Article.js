@@ -161,24 +161,7 @@ function creator(ele, attributes, ...children) {
   })
   return el
 };
-// function expandArticle() {
-//     if (this.element.css('height') <= '50px')  {
-//       this.element.css('height') == '50px';
-//       this.element.animate({
-//           height: '450px',
-//       }, 5000)
-//       this.expandButton.text('Click to Close');
-//       }
-// }
-//
-// $('.articles').click(function() {
-// if ($('.article').css('height') == '450px') {
-//   $('.article').animate({
-//     height: '50px'
-// }, {
-//   duration: 5000,
-// })}
-// })
+
 let article = document.querySelectorAll('.article');
 article.forEach(function(ar) {
   ar.addEventListener('mousedown', function(event) {
