@@ -1,7 +1,6 @@
 /* This is the data we will be using to create our article components */
 /* Look over this data, then proceed to line 91*/
-const data = [
-  {
+const data = [{
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -113,83 +112,58 @@ const data = [
 
 */
 
-
-const accordion = document.createElement('button');
-accordion.classList.add('expandButton');
-const article = document.querySelectorAll('article');
+const header = document.querySelector('.header');
+const accordion = document.createElement('div');
 const articles = document.querySelector('.articles');
-const menuImg = document.querySelector('.meunu-button');
 
-document.body.appendChild(accordion);
-accordion.appendChild(articles);
+data.forEach(function(d) {
+  let accord = {
+    obj: d,
+    title: d.title,
+    date: d.date,
+    one: d.firstParagraph,
+    two: d.secondParagraph,
+    three: d.thirdParagraph,
+  }
 
-let level1;
-accordion.textContent = "ACCORDIAN";
-
-// document.querySelector('.close').setAttribute('style','display:','none');
-data.arr = [];
-
-////////////////////////////////////////////////////////////////////////
-//////creat an array to sort to access dif paragraphs///////////////////
-////////////////////////////////////////////////////////////////////////
-
-data.forEach(function(d){
-data.arr.push([d.firstParagraph,d.secondParagraph,d.thirdParagraph]);
-
+  let aa = creator('div', {
+    class: 'article'
+  }, creator('div', {
+    class: 'date article'
+  }, creator('div', {}, title = accord.title), creator('div', {
+    class: ' date article'
+  }, date = accord.date)), creator('div', {
+    class: 'close'
+  }, accord.one, accord.two, accord.three));
+  console.log(accord.obj)
+  articles.appendChild(aa);
+  articles.classList.add('close')
 })
 
-console.log(data.arr)
-////////////////////////////////////////////////////////////////////////
-//////              How are things going?            ///////////////////
-////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////
-///////////////////////element-factory///////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-function creator(ele,attributes, ...children){
+function creator(ele, attributes, ...children) {
   const el = document.createElement(ele)
-  accordion.appendChild(el);
   for (key in attributes) {
-	el.setAttribute(key, attributes[key])
+    el.setAttribute(key, attributes[key])
   }
   children.forEach(child => {
-	if (typeof child === 'string') {
-	  el.appendChild(document.createTextNode(child))
-	} else {
-	el.appendChild(child)
-	}
-})
+    if (typeof child === 'string') {
+      el.appendChild(document.createTextNode(child))
+    } else {
+      el.appendChild(child)
+    }
+
+  })
   return el
 };
-////////////////////////////////////////////////////////////////////////////
-///////////////////end of factory/////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-// let article = document.getElementsByClassName('article');
-////////////////////////////////////////////////////////////////////////////
-//////////////////////giving the factory something to chew on///////////////
-////////////////////////////////////////////////////////////////////////////
-let contentArr =[];
-linebreak = document.createElement("br");
-for(let i = 0;i<data.arr.length;i++){
-  let para = data.arr[i]+"Paragraph";
-data.forEach(data => {
-let level1 = creator('div',{class:'article'},creator('p',{class:'article'},`${data.title} \n ${data.date}`,creator('p',{},para)));
-article.forEach(function(ar){
-  return articles.appendChild(ar);
-})
-})
-articles.setAttribute('style','display:','none;')
 
-}
 
-let attributeChanger = function(){
+let article = document.querySelectorAll('.article');
+article.forEach(function(ar) {
+  ar.addEventListener('mousedown', function(event) {
+    ar.classList.toggle('close');
+    this.classList.toggle('expandButton');
+    this.classList.toggle('article-open');
+    console.log(this)
+  })
 
-// article.style.display = 'none';
-}
-attributeChanger()
-accordion.addEventListener('click', event => {
-  articles.classList.toggle('article-open')
 })
-////////////////////////////////////////////////////////////////////////////
-/////////////////          hoping its full                   ///////////////
-////////////////////////////////////////////////////////////////////////////
