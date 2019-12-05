@@ -115,6 +115,7 @@ const data = [{
 const header = document.querySelector('.header');
 const accordion = document.createElement('div');
 const articles = document.querySelector('.articles');
+// articles.classList.add('close');
 let date = document.querySelector('.date');
 data.forEach(function(d) {
   let accord = {
@@ -128,24 +129,21 @@ data.forEach(function(d) {
   }
 
   let aa = creator('div', {
-    class: 'article'
+    class: 'articles'
   },
 
   creator('div', {
     class: 'date article'
   },
-  creator('div', {}, title = accord.title),
+  creator('div', {class:' date'}, title = accord.title),
 
-  creator('div', {class:' date'}, date = accord.date)));
-
-let bb = creator('div',{class:'articles'},
+  creator('div', {class:' date'}, date = accord.date)),
+creator('div',{class:'articles'},
  creator('div',{class: 'article'},accord.one),
 creator('div',{class:'article'},accord.two),
- creator('div',{class:'article'},accord.three));
+ creator('div',{class:'article'},accord.three)));
 
   articles.appendChild(aa);
-  articles.classList.add('close');
-  aa.appendChild(bb)
 })
 
 function creator(ele, attributes, ...children) {
@@ -163,12 +161,31 @@ function creator(ele, attributes, ...children) {
   })
   return el
 };
-
-
+// function expandArticle() {
+//     if (this.element.css('height') <= '50px')  {
+//       this.element.css('height') == '50px';
+//       this.element.animate({
+//           height: '450px',
+//       }, 5000)
+//       this.expandButton.text('Click to Close');
+//       }
+// }
+//
+// $('.articles').click(function() {
+// if ($('.article').css('height') == '450px') {
+//   $('.article').animate({
+//     height: '50px'
+// }, {
+//   duration: 5000,
+// })}
+// })
 let article = document.querySelectorAll('.article');
 article.forEach(function(ar) {
   ar.addEventListener('mousedown', function(event) {
       // if(ar.classList.contains('date')){
+      if(ar.classList.contains('expandButton')){
+        ar.classList.toggle('close')
+      }
     ar.classList.toggle('close');
     this.classList.toggle('expandButton');
     this.classList.toggle('article-open');
