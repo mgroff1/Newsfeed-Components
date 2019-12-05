@@ -111,69 +111,49 @@ const data = [{
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+//
 
-const header = document.querySelector('.header');
-const accordion = document.createElement('div');
-const articles = document.querySelector('.articles');
-// articles.classList.add('close');
-let date = document.querySelector('.date');
-data.forEach(function(d) {
-  let accord = {
-    obj: d,
-    title: d.title,
-    date: d.date,
-    one: d.firstParagraph,
-    two: d.secondParagraph,
-    three: d.thirdParagraph,
-    arr:[d.firstParagraph,d.secondParagraph,d.thirdParagraph]
-  }
 
-  let aa = creator('div', {
-    class: 'articles'
-  },
+//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+let creator = function(title, date, firstParagraph, secondParagraph, thirdParagraph) {
 
-  creator('div', {
-    class: 'date article'
-  },
-  creator('div', {class:' date'}, title = accord.title),
-
-  creator('div', {class:' date'}, date = accord.date)),
-creator('div',{class:'articles'},
- creator('div',{class: 'article'},accord.one),
-creator('div',{class:'article'},accord.two),
- creator('div',{class:'article'},accord.three)));
-
-  articles.appendChild(aa);
-})
-
-function creator(ele, attributes, ...children) {
-  const el = document.createElement(ele)
-  for (key in attributes) {
-    el.setAttribute(key, attributes[key])
-  }
-  children.forEach(child => {
-    if (typeof child === 'string') {
-      el.appendChild(document.createTextNode(child))
-    } else {
-      el.appendChild(child)
-    }
-
+  const p1 = document.createElement('p');
+  const p2 = document.createElement('p');
+  const p3 = document.createElement('p');
+  const article = document.createElement('div');
+  const hText = document.createElement('h2');
+  const dates = document.createElement('p');
+  const expand = document.createElement('span');
+  hText.addEventListener('click', function(event) {
+    article.classList.toggle('article-open');
+    p1.classList.toggle('toggle-on');
+    p2.classList.toggle('toggle-on');
+    p3.classList.toggle('toggle-on');
   })
-  return el
+  let appending = (function() {
+    return article.appendChild(hText),
+      article.appendChild(dates),
+      article.appendChild(p1),
+      article.appendChild(p2),
+      article.appendChild(p3),
+      article.appendChild(expand);
+  }());
+  let contents = (function() {
+    return article.classList.add('article'),
+      dates.classList.add('date'),
+      expand.classList.add('expandButton', 'article-open'),
+      hText.textContent = title,
+      dates.textContent = date,
+      p1.textContent = firstParagraph,
+      p2.textContent = secondParagraph,
+      p3.textContent = thirdParagraph,
+      expand.textContent = '\u25bc';
+  }());
+  return article;
 };
-
-let article = document.querySelectorAll('.article');
-article.forEach(function(ar) {
-  ar.addEventListener('mousedown', function(event) {
-      // if(ar.classList.contains('date')){
-      if(ar.classList.contains('expandButton')){
-        ar.classList.toggle('close')
-      }
-    ar.classList.toggle('close');
-    this.classList.toggle('expandButton');
-    this.classList.toggle('article-open');
-    console.log(this)
-  // }
-}
-);
-});
+const articles = document.querySelector('.articles');
+data.forEach(artData => {
+  articles.appendChild(creator(artData.title, artData.date, artData.firstParagraph, artData.secondParagraph, artData.thirdParagraph))
+})
