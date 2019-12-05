@@ -115,7 +115,7 @@ const data = [{
 const header = document.querySelector('.header');
 const accordion = document.createElement('div');
 const articles = document.querySelector('.articles');
-
+let date = document.querySelector('.date');
 data.forEach(function(d) {
   let accord = {
     obj: d,
@@ -124,20 +124,28 @@ data.forEach(function(d) {
     one: d.firstParagraph,
     two: d.secondParagraph,
     three: d.thirdParagraph,
+    arr:[d.firstParagraph,d.secondParagraph,d.thirdParagraph]
   }
 
   let aa = creator('div', {
     class: 'article'
-  }, creator('div', {
+  },
+
+  creator('div', {
     class: 'date article'
-  }, creator('div', {}, title = accord.title), creator('div', {
-    class: ' date article'
-  }, date = accord.date)), creator('div', {
-    class: 'close'
-  }, accord.one, accord.two, accord.three));
-  console.log(accord.obj)
+  },
+  creator('div', {}, title = accord.title),
+
+  creator('div', {class:' date'}, date = accord.date)));
+
+let bb = creator('div',{class:'articles'},
+ creator('div',{class: 'article'},accord.one),
+creator('div',{class:'article'},accord.two),
+ creator('div',{class:'article'},accord.three));
+
   articles.appendChild(aa);
-  articles.classList.add('close')
+  articles.classList.add('close');
+  aa.appendChild(bb)
 })
 
 function creator(ele, attributes, ...children) {
@@ -156,13 +164,16 @@ function creator(ele, attributes, ...children) {
   return el
 };
 
+
 let article = document.querySelectorAll('.article');
 article.forEach(function(ar) {
   ar.addEventListener('mousedown', function(event) {
+      // if(ar.classList.contains('date')){
     ar.classList.toggle('close');
     this.classList.toggle('expandButton');
     this.classList.toggle('article-open');
     console.log(this)
-  })
-
-})
+  // }
+}
+);
+});
