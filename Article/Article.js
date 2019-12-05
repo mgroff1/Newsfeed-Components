@@ -156,7 +156,6 @@ function creator(ele, attributes, ...children) {
   return el
 };
 
-
 let article = document.querySelectorAll('.article');
 article.forEach(function(ar) {
   ar.addEventListener('mousedown', function(event) {
